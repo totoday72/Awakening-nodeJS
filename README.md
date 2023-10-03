@@ -72,8 +72,34 @@ Before Launch:
 [x] Focus tool Window
 
 ```
+Configuración Visual Code:
 
-
+>Dentro de la carpeta .vscode
+crear el archivo launch.json y colocar el siguiente código dentro del archivo.
+```
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "chrome",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}\\bin\\www"
+        }
+    ]
+}
+```
+Después de las configuraciones anteriores ya estará listo el ambiente de desarrollo para NodeJS.
 
 > [!IMPORTANT]
 > La version de NODEJS utilizada en esta versión de software es la v.18.18
