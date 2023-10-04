@@ -5,14 +5,14 @@ const conexion_info = require('./credentials');
 /*
 ############################## CREAR EL ARCHIVO: credentials.js
 
-function user_data() {
+function user_data() { // aca colocar el usuario para conectarse a la base de datos
     return "user_database";
 }
 
-function password_data() {
+function password_data() { // aca colocar la contraseña del usuario
     return "password_database";
 }
-function conection_url() {
+function conection_url() { // modificar IP_server, server_port y SID
     return "(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = IP_Server)(PORT = Server_Port ))(CONNECT_DATA =(SID= OracDB)))";
 }
 
