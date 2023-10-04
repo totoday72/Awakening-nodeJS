@@ -19,6 +19,8 @@ async function execute_query(query) {
             }
         );
         const data = await con.execute(query);                                          // Ejecuta el query en la base de datos y retorna datos
+
+        /*** CONVERTIR LOS DATOS RECIBIDOS DE LA BD A ESTRUCTURA JSON ***/
         const cabeceras = data.metaData.map(column => column.name);                     // obtiene el nombre de las columnas
         let contador = 0;                                                       // contador para ingresar los objetos obtenidos
         let pre_Json = {};                                                           // arreglo pare hacer una lista de objetos de la base de datos
