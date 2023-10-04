@@ -1,6 +1,30 @@
 const oracledb = require('oracledb');
 oracledb.outrormat = oracledb.OUT_FORMAT_OBJECT;
+const conexion_info = require('./credentials');
 
+/*
+############################## CREAR EL ARCHIVO: credentials.js
+
+function user_data() {
+    return "user_database";
+}
+
+function password_data() {
+    return "password_database";
+}
+function conection_url() {
+    return "(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = IP_Server)(PORT = Server_Port ))(CONNECT_DATA =(SID= OracDB)))";
+}
+
+
+module.exports = {
+    user_data: user_data,
+    password_data: password_data,
+    conection_url: conection_url
+};
+
+
+* */
 
 async function hola_mundo() {
     console.log("Hola");
@@ -13,9 +37,9 @@ async function execute_query(query) {
     try {
         con = await oracledb.getConnection(                                         // se crea la conexion a la base de datos
             {
-                user: "ehernandez",
-                password: "ehernandez",
-                connectionString: "(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.9.14)(PORT = 1521))(CONNECT_DATA =(SID= MICRO)))"
+                user: conexion_info.user_data(),
+                password: conexion_info.password_data(),
+                connectionString: conexion_info.conection_url()
             }
         );
         const data = await con.execute(query);                                          // Ejecuta el query en la base de datos y retorna datos
