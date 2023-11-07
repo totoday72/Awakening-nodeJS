@@ -121,9 +121,9 @@ function sid(database) { // ORACLE  || SID
 
 function url(database) { // ORACLE ||  url de conexion.
     if (database === 'DB2')
-        return "DRIVER={DB2};DATABASE="+database_name('DB2')+";HOSTNAME="+hostname('DB2')+";UID="+user('DB2')+";PWD="+password('DB2')+";PORT="+port('DB2')+";PROTOCOL="+protocol('DB2');
+        return "DRIVER={DB2};DATABASE="+database_name(database)+";HOSTNAME="+hostname(database)+";UID="+user(database)+";PWD="+password(database)+";PORT="+port(database)+";PROTOCOL="+protocol(database);
     else if (database === 'ORACLE')
-        return "(DESCRIPTION =(ADDRESS = (PROTOCOL = "+protocol('ORACLE')+")(HOST = "+ hostname('ORACLE')+")(PORT = "+port('ORACLE')+"))(CONNECT_DATA = (SID = "+sid('ORACLE')+")))";
+        return "(DESCRIPTION =(ADDRESS = (PROTOCOL = "+protocol(database)+")(HOST = "+ hostname(database)+")(PORT = "+port(database)+"))(CONNECT_DATA = (SID = "+sid(database)+")))";
 }
 
 module.exports = {
