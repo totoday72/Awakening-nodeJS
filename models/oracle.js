@@ -2,30 +2,6 @@ const oracledb = require('oracledb');
 oracledb.outrormat = oracledb.OUT_FORMAT_OBJECT;
 const conexion_info = require('./credentials');
 
-/*
-############################## CREAR EL ARCHIVO: credentials.js
-
-function user_data() { // aca colocar el usuario para conectarse a la base de datos
-    return "user_database";
-}
-
-function password_data() { // aca colocar la contraseña del usuario
-    return "password_database";
-}
-function conection_url() { // modificar IP_server, server_port y SID
-    return "(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = IP_Server)(PORT = Server_Port ))(CONNECT_DATA =(SID= OracDB)))";
-}
-
-
-module.exports = {
-    user_data: user_data,
-    password_data: password_data,
-    conection_url: conection_url
-};
-
-
-* */
-
 async function hola_mundo() {
     console.log("Hola");
     return null;
@@ -37,9 +13,9 @@ async function execute_query(query) {
     try {
         con = await oracledb.getConnection(                                         // se crea la conexion a la base de datos
             {
-                user: conexion_info.user_data(),
-                password: conexion_info.password_data(),
-                connectionString: conexion_info.conection_url()
+                user: conexion_info.user('ORACLE'),
+                password: conexion_info.password('ORACLE'),
+                connectionString: conexion_info.url('ORACLE')
             }
         );
         const data = await con.execute(query);                                          // Ejecuta el query en la base de datos y retorna datos
@@ -87,3 +63,75 @@ module.exports = {
     execute_query: execute_query, //se exporta para que pueda usarse fuera de este archivo js
     hola_mundo: hola_mundo
 };
+
+/*
+*
+*
+*
+*
+* ############################## CREAR EL ARCHIVO: credentials.js y pegar el siguiente codigo agregando los datos necesarios para la conexion
+function user(database) { // usuario de la base de datos
+    if (database === 'DB2')
+        return "";
+    else if (database === 'ORACLE')
+        return "";
+}
+
+function password(database) { // contraseña del usuario
+    if (database === 'DB2')
+        return "";
+    else if (database === 'ORACLE')
+        return "";
+}
+
+function port(database) { //DB2: 50000 || ORACLE 1521
+    if (database === 'DB2')
+        return "50000";
+    else if (database === 'ORACLE')
+        return "1521";
+}
+
+function hostname(database) { // PUEDE SER: localhost o una IP
+    if (database === 'DB2')
+        return "";
+    else if (database === 'ORACLE')
+        return "";
+}
+
+function database_name(database) { //DB2: Nombre de la base de datos
+    if (database === 'DB2')
+        return "SAMPLE";
+    else if (database === 'ORACLE')
+        return "";
+}
+
+function protocol(database) { // DB2 || ORACLE  || protocolo de conexion
+    if (database === 'DB2')
+        return "TCPIP";
+    else if (database === 'ORACLE')
+        return "TCP";
+}
+
+function sid(database) { // ORACLE  || SID
+    if (database === 'DB2')
+        return "";
+    else if (database === 'ORACLE')
+        return "";
+}
+
+function url(database) { // ORACLE ||  url de conexion.
+    if (database === 'DB2')
+        return "DRIVER={DB2};DATABASE="+database_name('DB2')+";HOSTNAME="+hostname('DB2')+";UID="+user('DB2')+";PWD="+password('DB2')+";PORT="+port('DB2')+";PROTOCOL="+protocol('DB2');
+    else if (database === 'ORACLE')
+        return "(DESCRIPTION =(ADDRESS = (PROTOCOL = "+protocol('ORACLE')+")(HOST = "+ hostname('ORACLE')+")(PORT = "+port('ORACLE')+"))(CONNECT_DATA = (SID = "+sid('ORACLE')+")))";
+}
+
+module.exports = {
+    user: user, //se exporta para que pueda usarse fuera de este archivo js
+    password: password,
+    url: url
+};
+*
+*
+*
+* */

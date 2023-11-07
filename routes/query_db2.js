@@ -1,14 +1,13 @@
 var express = require('express');
 var router = express.Router();
-const conexion = require('../models/db');
+const conexion_db2 = require('../models/db2');
 
-router.post('/', async function(req, res, next) {
+router.post('/', async function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
     //res.send(JSON.stringify({key:"value"}));
     //res.setHeader('Content-Type', 'text/javascript');
-    console.log(req.body.query+ "req"); // imprime lo enviado en el post
-    console.log(req.body.query+ "res");
-    const response = await conexion.execute_query(req.body.query); // ejecuta el query y lo asigna a la variable response
+    console.log(req.body.query_db2 + "req"); // imprime lo enviado en el post
+    const response = await conexion_db2.execute_query(req.body.query_db2); // ejecuta el query y lo asigna a la variable response
     res.send(response); // responde al cliente el query de la base de datos.
 });
 

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$USER_HOME$/WebstormProjects/awakening_prueba/.idea/awakening_prueba.iml" filepath="$USER_HOME$/WebstormProjects/awakening_prueba/.idea/awakening_prueba.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/nodeJS-Awakening.iml" filepath="$PROJECT_DIR$/.idea/nodeJS-Awakening.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../react-awakening/.idea/react-awakening.iml" filepath="$PROJECT_DIR$/../react-awakening/.idea/react-awakening.iml" />
     </modules>
   </component>
 </project>

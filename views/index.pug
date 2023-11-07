@@ -1,13 +1,19 @@
 extends layout
 
 block content
-  body(class="body_background_login")
-  h1= title
-    h1 Pagina para Generar Querys
-    div.container.text-center
-      h1 Query Form
-      form(action="/query", method="POST")
-        .form-group
-          label(for="query") Query solicitado:
-          textarea(name="query", id="query", class="form-control", required)
-        button.btn.btn-primary(type="submit" class="btn btn-success") Ejecutar Query
+    body(class="body_background_login")
+    h1= title
+        h1 Pagina para Generar Querys
+        div.container.text-center
+            h1 Query Forms
+            form(action="/query_oracle", method="POST")
+                .form-group
+                    label(for="query_oracle") Query solicitado Oracle:
+                    textarea(name="query_oracle", id="query_oracle", class="form-control", required)
+                button.btn.btn-primary(type="submit" class="btn btn-success") Ejecutar Query
+        div.container.text-center
+            form(action="/query_db2", method="POST")
+                .form-group
+                    label(for="query_db2") Query solicitado DB2:
+                    textarea(name="query_db2", id="query_db2", class="form-control", required)
+                button.btn.btn-primary(type="submit" class="btn btn-success") Ejecutar Query

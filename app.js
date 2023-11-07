@@ -7,7 +7,8 @@ var logger = require('morgan');
 // ACA SE AGREGAN LAS RUTAS PARA LAS PAGINAS DEL FRONT-END
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var queryRouter = require('./routes/query');
+var query_oracle_Router = require('./routes/query_oracle');
+var query_db2_Router = require('./routes/query_db2');
 
 var app = express();
 
@@ -24,7 +25,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // SE TIENEN QUE ESCRIBIR ACA LAS PAGINAS
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/query', queryRouter);
+app.use('/query_oracle', query_oracle_Router);
+app.use('/query_db2', query_db2_Router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
