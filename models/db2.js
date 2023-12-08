@@ -16,6 +16,7 @@ async function execute_query(query) {
         con = ibmdb.openSync(conexion_info.url('DB2'));
         const data= await con.querySync(query);
         console.log(data);
+        con.com
 
         //console.log('Datos de la fila:', pre_Json);
         let json = JSON.stringify(data); //pasar a json el arreglo de objetos obtenidos de la base de datos.
