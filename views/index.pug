@@ -17,3 +17,12 @@ block content
                     label(for="query_db2") Query solicitado DB2:
                     textarea(name="query_db2", id="query_db2", class="form-control", required)
                 button.btn.btn-primary(type="submit" class="btn btn-success") Ejecutar Query
+
+        div.container.text-center
+            form(action="/users", method="POST")
+                .form-group
+                    label(for="user") Usuario
+                    textarea(name="user", id="user", class="form-control", required)
+                    label(for="password") Contraseña
+                    textarea(name="password", id="password", class="form-control", required)
+                button.btn.btn-primary(type="submit" class="btn btn-success") Ejecutar Query

@@ -19,8 +19,8 @@ async function execute_query(query) {
             }
         );
         const data = await con.execute(query);                                          // Ejecuta el query en la base de datos y retorna datos
-        con.commit();
-        data.commit();
+        //con.commit();
+        //data.commit();
         /*** CONVERTIR LOS DATOS RECIBIDOS DE LA BD A ESTRUCTURA JSON ***/
         const cabeceras = data.metaData.map(column => column.name);                     // obtiene el nombre de las columnas
         let contador = 0;                                                       // contador para ingresar los objetos obtenidos
@@ -56,8 +56,9 @@ async function execute_query(query) {
             }
         }
     }
-
 }
+
+
 
 // Exportar la función para que esté disponible fuera de este módulo
 module.exports = {
