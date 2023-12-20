@@ -14,7 +14,7 @@ router.get('/', async function (req, res, next) {
 router.post('/', async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     console.log(req.body);
-    let query = 'SELECT pass FROM awakening.usuario WHERE usuario =\'' + req.body.user + '\' and pass=\'' + req.body.password + '\'';
+    let query = 'SELECT PASS FROM awakening.usuario WHERE usuario =\'' + req.body.user + '\' and pass=\'' + req.body.password + '\'';
     const response = await conexion.execute_query(query);
     res.send(response);
 });
