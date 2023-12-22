@@ -11,25 +11,28 @@ var usersRouter = require('./routes/users');
 var query_oracle_Router = require('./routes/query_oracle');
 var query_db2_Router = require('./routes/query_db2');
 
-var app = express();
+
+// ACA SE AGREGAN LAS RUTAS PARA INSERTS
+var insert_empleado_Router = require('./routes/inserts/insert_empleado');
+
 
 // view engine setup
-
+var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// SE TIENEN QUE ESCRIBIR ACA LAS PAGINAS
-app.use('/', indexRouter);
-app.use('/api/users', cors() ,usersRouter);
-app.use('/api/query_oracle', query_oracle_Router);
-app.use('/api/query_db2', query_db2_Router);
 
+// SE TIENEN QUE ESCRIBIR ACA LAS PAGINAS PARA LAS APIS ACA SE HABILITA CORS
+app.use('/', indexRouter);
+app.use('/api/users', cors(), usersRouter);
+app.use('/api/query_oracle', cors(), query_oracle_Router);
+app.use('/api/query_db2', cors(), query_db2_Router);
+app.use('/api/empleado', cors(), insert_empleado_Router);
 
 
 const config = require('./config');
@@ -75,19 +78,19 @@ app.use(cors(
 // });
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.use(function (req, res, next) {
+    next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function (err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;

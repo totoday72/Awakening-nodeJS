@@ -2,10 +2,34 @@ const oracledb = require('oracledb');
 oracledb.outrormat = oracledb.OUT_FORMAT_OBJECT;
 const conexion_info = require('./credentials');
 
-async function hola_mundo() {
-    console.log("Hola");
-    return null;
+async function begin_Transaction() {
+    let con;
+    return con = await oracledb.getConnection(                                         // se crea la conexion a la base de datos
+        {
+            user: conexion_info.user('ORACLE'),
+            password: conexion_info.password('ORACLE'),
+            connectionString: conexion_info.url('ORACLE')
+        }
+    );
 }
+
+async function close_Transaction(con) {
+    try {
+        con.commit();
+    } catch (err) {
+        console.error(err); // si existe un error se envia un null y se imprime el error en la consola de nodejs
+        return null;
+    } finally { // al finalizar con exito o sin exito obliga a cerrar la conexion con la base de datos.
+        if (con) {
+            try {
+                await con.close();
+            } catch (error) {
+                console.error('Error al cerrar la conexión:', error);
+            }
+        }
+    }
+}
+
 
 async function execute_query(query) {
     query = query.replace(';', '');                                                 // quita el ; si el query trajera, si lo tiene da error ejecutar el query
@@ -19,7 +43,7 @@ async function execute_query(query) {
             }
         );
         const data = await con.execute(query);                                          // Ejecuta el query en la base de datos y retorna datos
-        //con.commit();
+        con.commit();
         //data.commit();
         /*** CONVERTIR LOS DATOS RECIBIDOS DE LA BD A ESTRUCTURA JSON ***/
         const cabeceras = data.metaData.map(column => column.name);                     // obtiene el nombre de las columnas
@@ -59,11 +83,9 @@ async function execute_query(query) {
 }
 
 
-
 // Exportar la función para que esté disponible fuera de este módulo
 module.exports = {
     execute_query: execute_query, //se exporta para que pueda usarse fuera de este archivo js
-    hola_mundo: hola_mundo
 };
 
 /*
