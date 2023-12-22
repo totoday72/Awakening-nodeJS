@@ -13,6 +13,11 @@ async function begin_Transaction() {
     );
 }
 
+async function execute_Transaction_query(con, query){
+    const data = await con.execute(query);
+    return {con, data};
+}
+
 async function close_Transaction(con) {
     try {
         con.commit();
@@ -86,6 +91,9 @@ async function execute_query(query) {
 // Exportar la función para que esté disponible fuera de este módulo
 module.exports = {
     execute_query: execute_query, //se exporta para que pueda usarse fuera de este archivo js
+    begin_Transaction: begin_Transaction,
+    close_Transaction: close_Transaction,
+    execute_Transaction_query: execute_Transaction_query
 };
 
 /*
