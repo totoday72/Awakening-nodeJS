@@ -4,18 +4,36 @@ const conexion_info = require('./credentials');
 
 async function begin_Transaction() {
     let con;
-    return con = await oracledb.getConnection(                                         // se crea la conexion a la base de datos
-        {
-            user: conexion_info.user('ORACLE'),
-            password: conexion_info.password('ORACLE'),
-            connectionString: conexion_info.url('ORACLE')
+    try {
+        return con = await oracledb.getConnection(                                         // se crea la conexion a la base de datos
+            {
+                user: conexion_info.user('ORACLE'),
+                password: conexion_info.password('ORACLE'),
+                connectionString: conexion_info.url('ORACLE')
+            }
+        );
+    } catch (err) {
+        console.error(err); // si existe un error se envia un null y se imprime el error en la consola de nodejs
+        return null;
+    } finally { // al finalizar con exito o sin exito obliga a cerrar la conexion con la base de datos.
+        if (con) {
+            try {
+                await con.close();
+            } catch (error) {
+                console.error('Error al cerrar la conexión:', error);
+            }
         }
-    );
+    }
 }
 
 async function execute_Transaction_query(con, query){
-    const data = await con.execute(query);
-    return {con, data};
+    try {
+        const data = await con.execute(query);
+        return {con, data};
+    } catch (err) {
+        console.error(err); // si existe un error se envia un null y se imprime el error en la consola de nodejs
+        return {con, data:null};
+    }
 }
 
 async function close_Transaction(con) {

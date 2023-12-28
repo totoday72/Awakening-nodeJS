@@ -1,7 +1,7 @@
+var fs = require('fs');
 var express = require('express');
 var router = express.Router();
 const conexion = require('../../models/oracle');
-
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
@@ -23,55 +23,25 @@ router.post('/', async function (req, res) {
     let correo = req.body.correo;
     let peso = req.body.peso;
     let altura = req.body.altura;
-    let foto = req.body.foto;
-    console.log(req.body);
+    let base64_file = req.body.base64_imagen;
+    let extention_file = req.body.tipo_archivo;
+    let filename = doc_dpi + '.' + extention_file;
+    let foto = filename;
 
+    filename = filename.replace(" ", "");
     let query = "INSERT INTO AWMOVIL.EMPLEADO (PNOMBRE, SNOMBRE, PAPELLIDO, SAPELLIDO, DPI, FCHNAC, TEL1, EMAIL, PESO, ALTURA, FOTO) " +
         " VALUES ('" + pnombre + "', '" + snombre + "', '" + papellido + "', '" + sapellido + "', '" + doc_dpi + "', '" + fchnac + "', '" + tel1 + "', '" + correo + "', " + peso + ", " + altura + ", '" + foto + "')";
     const response = await conexion.execute_query(query);
-
-    // response.commit();
+    let base64Image = base64_file.split(';base64,')[1];
+    fs.writeFile(+ __dirname + '..\\..\\files\\empleados\\' + filename, base64Image, {encoding: 'base64'}, function (err) {
+        console.log('File created');
+    });
     console.log("todo correcto");
     res.send(JSON.stringify({
         0: {
-            resultado: 'error: ' + response,
+            resultado: 'error: '// + response?null:null,
         }
     }));
-
-
-    // if(!response.error){
-    //     response.commit();
-    //     console.log("todo correcto");
-    //     res.send(JSON.stringify({
-    //         0: {
-    //         resultado: 'error:'
-    //     }
-    //     }));
-    // }else {
-    //     response.rollback();
-    //     console.log("error" + response.error);
-    //     res.send(JSON.stringify({
-    //         0: {
-    //         resultado: 'error:'
-    //     }
-    //     }));
-    // }
-
-    // res.send(JSON.stringify({
-    //     0: {
-    //         pnombre: req.body.pnombre,
-    //         snombre: req.body.snombre,
-    //         papellido: req.body.papellido,
-    //         sapellido: req.body.sapellido,
-    //         doc_dpi: req.body.doc_dpi,
-    //         fchnac: req.body.fchnac,
-    //         tel1: req.body.tel1,
-    //         correo: req.body.correo,
-    //         peso: req.body.peso,
-    //         altura: req.body.altura,
-    //         foto: req.body.foto
-    //     }
-    // }));
 });
 
 module.exports = router;
