@@ -1,5 +1,5 @@
 <p align="center"><a href="https://nodejs.org/es" target="_blank"><img src="https://nodejs.org/static/images/logo.svg" width="500"></a></p>
-https://www.mediafire.com/file/196psaqw2455vl4/Google%252BAccount%252BManager%252B9.0%252BAPK%252BAPP%252BFor%252BBypass%252BFRP.apk/file
+
 
 # nodeJS-Awakening
 Back-end Application
